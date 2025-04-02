@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/fl_content"/>
-
+<!--这个view作为linearLayout的背景，提供从低到高的透明渐变，让列表看起来渐渐消失-->
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_90"
@@ -35,6 +35,39 @@
             android:textColor="@color/color_bottom_tv"
             android:textSize="@dimen/sp_11"
             app:drawableTopCompat="@drawable/selector_one"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:drawablePadding="@dimen/dp_3"
+            android:gravity="center"
+            android:text="@string/project"
+            android:textColor="@color/color_bottom_tv"
+            android:textSize="@dimen/sp_11"
+            app:drawableTopCompat="@drawable/selector_two"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:drawablePadding="@dimen/dp_3"
+            android:gravity="center"
+            android:text="@string/official_account"
+            android:textColor="@color/color_bottom_tv"
+            android:textSize="@dimen/sp_11"
+            app:drawableTopCompat="@drawable/selector_three"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:drawablePadding="@dimen/dp_3"
+            android:gravity="center"
+            android:text="@string/mine"
+            android:textColor="@color/color_bottom_tv"
+            android:textSize="@dimen/sp_11"
+            app:drawableTopCompat="@drawable/selector_four"/>
     </LinearLayout>
 
 </FrameLayout>
