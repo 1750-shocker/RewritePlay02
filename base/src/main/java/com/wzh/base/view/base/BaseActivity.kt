@@ -9,6 +9,8 @@ import android.widget.FrameLayout
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.CallSuper
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.LiveData
 import com.scwang.smart.refresh.layout.util.SmartUtil.dp2px
 import com.wzh.base.R
@@ -46,6 +48,13 @@ abstract class BaseActivity : AppCompatActivity(), ILce, BaseActivityInit {
         } else {
             enableEdgeToEdge()
         }
+        //Android Studio默认适配
+        /*enableEdgeToEdge()
+        ViewCompat.setOnApplyWindowInsetsListener(getRealLayoutView()) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }*/
         //加载视图统一用getLayoutView()方法,这里调用自己扩写的setContentView()方法
         setContentView(getRealLayoutView())
         //用ActivityCollector收集弱引用
@@ -61,6 +70,11 @@ abstract class BaseActivity : AppCompatActivity(), ILce, BaseActivityInit {
         //设置LCE
         setupViews()
     }
+
+    /**
+     * 因为有可能子类不需要initData，所以这里提前给一个空实现
+     */
+    override fun initData() {}
 
     //使用 open 关键字，允许子类重写该方法
     //使用 protected 访问修饰符，限制只能在类内部或子类中访问

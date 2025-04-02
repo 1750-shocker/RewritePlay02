@@ -14,7 +14,7 @@ class DefaultLceImpl(
     //LCE展示的视图,其本质就是在容器中根据数据加载结果显示不同的视图，如果
 // 数据加载成功，显示原本的视图，否则显示LCE视图,通过在frameLayout中
 //叠加视图并控制其可见性来实现
-    override fun showLoading() {
+    override fun startLoading() {
         //这个方法就是关掉所有lce视图
         loadFinished()
         loading?.visibility = View.VISIBLE
