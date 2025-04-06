@@ -42,9 +42,9 @@ class ProjectFragment : BaseTabFragment() {
             val nameList = mutableListOf<String>()
             val viewList = mutableListOf<Fragment>()
             //数据没错
-            it.forEach { classify ->
-                nameList.add(classify.name)
-                viewList.add(ProjectListFragment.newInstance(classify.id))
+            it.forEach { projectTab ->
+                nameList.add(projectTab.name)
+                viewList.add(ProjectListFragment.newInstance(projectTab.id))
             }
             adapter.apply {
                 reset(nameList.toTypedArray())

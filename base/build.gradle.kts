@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -53,4 +54,14 @@ dependencies {
     api(libs.refresh.footer.classics)   // 经典加载
 
     api(libs.fragment.ktx)
+
+    api(libs.recyclerview)
+    api(libs.lifecycle.extensions)
+    api(libs.lifecycle.livedata.ktx)
+    api(libs.lifecycle.runtime.ktx)
+    api(libs.lifecycle.viewmodel.ktx)
+    api(libs.material)
+
+    api(libs.glide)
+    annotationProcessor(libs.glide.compiler)
 }

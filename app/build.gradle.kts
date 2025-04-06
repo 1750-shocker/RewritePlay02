@@ -43,6 +43,7 @@ android {
 dependencies {
     implementation(project(":base"))
     implementation(project(":model"))
+    implementation(project(":network"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

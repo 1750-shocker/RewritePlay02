@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "project_classify")
-data class ProjectClassify(
+data class ProjectTab(
     @PrimaryKey(autoGenerate = true) val uid: Int,
     //@ColumnInfo(name = "children") val children: List<Any> = arrayListOf(),
     @ColumnInfo(name = "course_id") val courseId: Int,

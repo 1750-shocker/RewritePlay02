@@ -5,12 +5,12 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.wzh.model.room.dao.ArticleDao
-import com.wzh.model.room.dao.ProjectClassifyDao
+import com.wzh.model.room.dao.ProjectTabDao
 import com.wzh.model.room.entity.Article
-import com.wzh.model.room.entity.ProjectClassify
+import com.wzh.model.room.entity.ProjectTab
 
 
-@Database(entities = [ProjectClassify::class, Article::class], version = 1)
+@Database(entities = [ProjectTab::class, Article::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
 
     companion object {
@@ -33,7 +33,7 @@ abstract class AppDatabase : RoomDatabase() {
         }
     }
 
-    abstract fun projectClassifyDao(): ProjectClassifyDao
-    abstract fun browseArticlesDao(): ArticleDao
+    abstract fun projectTabDao(): ProjectTabDao
+    abstract fun articleDao(): ArticleDao
 
 }

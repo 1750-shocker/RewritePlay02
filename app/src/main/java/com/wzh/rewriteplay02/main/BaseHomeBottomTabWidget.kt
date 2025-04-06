@@ -2,6 +2,7 @@ package com.wzh.rewriteplay02.main
 
 import android.content.Context
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
@@ -45,6 +46,7 @@ abstract class BaseHomeBottomTabWidget(
      * 并更新position
      */
     protected open fun changeFragment(position: Int) {
+        Log.e("wocaonima", "changeFragment: ${position}")
         mViewModel.setPage(position)
         //根据position获取目标fragment
         val targetFg: Fragment = mFragments[position]

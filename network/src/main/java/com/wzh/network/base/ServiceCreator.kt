@@ -4,6 +4,7 @@ import com.wzh.base.util.DataStoreUtils
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 import java.util.concurrent.TimeUnit
 
 object ServiceCreator {
@@ -56,6 +57,8 @@ object ServiceCreator {
         }.build()
 
     }
+
+    fun <T> create(service: Class<T>): T = create().create(service)
 
     private fun create(): Retrofit {
         return Retrofit.Builder().apply {

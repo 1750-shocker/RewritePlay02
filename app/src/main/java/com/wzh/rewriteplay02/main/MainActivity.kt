@@ -15,8 +15,10 @@ import com.wzh.base.util.showToast
 import com.wzh.base.view.base.BaseActivity
 import com.wzh.rewriteplay02.R
 import com.wzh.rewriteplay02.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlin.system.exitProcess
 
+@AndroidEntryPoint
 class MainActivity : BaseActivity() {
 
     private lateinit var binding: ActivityMainBinding

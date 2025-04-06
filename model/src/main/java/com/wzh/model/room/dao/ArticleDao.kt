@@ -28,7 +28,7 @@ interface ArticleDao {
     suspend fun getTopArticleList(type: Int): List<Article>
 
     @Query("SELECT * FROM browse_history where local_type = :type and chapter_id = :chapterId")
-    suspend fun getArticleListForChapterId(type: Int, chapterId: Int): List<Article>
+    suspend fun getArticleListForCid(type: Int, chapterId: Int): List<Article>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertList(articleList: List<Article>)

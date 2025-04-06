@@ -1,15 +1,15 @@
 package com.wzh.rewriteplay02.project
 
 import androidx.lifecycle.LiveData
-import com.wzh.base.view.base.BaseAndroidViewModel
-import com.wzh.model.room.entity.ProjectClassifyTab
+import com.wzh.base.view.base.BaseViewModel
+import com.wzh.model.room.entity.ProjectTab
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class ProjectViewModel @Inject constructor(
     private val projectRepository: ProjectRepository
-) : BaseAndroidViewModel<List<ProjectClassifyTab>, Unit, Boolean>() {
+) : BaseViewModel<List<ProjectTab>, Unit, Boolean>() {
 
     var position=0
 
@@ -18,8 +18,8 @@ class ProjectViewModel @Inject constructor(
         getDataList(false)
     }
 
-    override fun getData(page: Boolean): LiveData<Result<List<ProjectClassifyTab>>> {
+    override fun getData(key: Boolean): LiveData<Result<List<ProjectTab>>> {
         //设置具体的数据请求方法
-        return projectRepository.getProjectTab(page)
+        return projectRepository.getProjectTab(key)
     }
 }

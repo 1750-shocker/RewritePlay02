@@ -5,15 +5,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.switchMap
 
-abstract class BaseAndroidViewModel<BaseData, Data, Key> : ViewModel() {
+abstract class BaseViewModel<BaseData, Data, Key> : ViewModel() {
     val dataList = ArrayList<Data>()
     private val pageLiveData = MutableLiveData<Key>()
 
-    fun getDataList(page: Key) {
-        pageLiveData.value = page!!
+    fun getDataList(key: Key) {
+        pageLiveData.value = key!!
     }
 
-    val dataLiveData = pageLiveData.switchMap { page -> getData(page) }
-    abstract fun getData(page: Key): LiveData<Result<BaseData>>
+    val dataLiveData = pageLiveData.switchMap { key -> getData(key) }
+
+    abstract fun getData(key: Key): LiveData<Result<BaseData>>
 
 }

@@ -1,6 +1,7 @@
 package com.wzh.rewriteplay02.project
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.viewModels
 import com.wzh.model.pojo.QueryArticle
 import com.wzh.rewriteplay02.article.ArticleAdapter
@@ -41,21 +42,24 @@ class ProjectListFragment : BaseListFragment() {
 
 
     override fun initData() {
+        Log.e("wocaonima", "initData: wocaonima", )
         //在初始化数据的方法里设置lce
         setDataStatus(viewModel.dataLiveData,
             {
+                Log.e("wocaonima", "initData: 网络不行的回调体")
                 //网络不行执行
                 if (viewModel.dataList.size > 0) loadFinished()
-            })
-        {
+            }) {
             //数据请求正常后进行填充
+            Log.e("wocaonima", "initData: 数据行的回调体")
             if (page == 1 && viewModel.dataList.size > 0) {
-                viewModel.dataList.addAll(it)
-                //填充完通知更新视图
-                articleAdapter.notifyItemInserted(it.size)
+                viewModel.dataList.clear()
             }
-            getArticleList(false)
+            viewModel.dataList.addAll(it)
+            //填充完通知更新视图
+            articleAdapter.notifyItemInserted(it.size)
         }
+        getArticleList(false)
     }
 
     override fun refreshData() {
@@ -63,7 +67,6 @@ class ProjectListFragment : BaseListFragment() {
     }
 
     private fun getArticleList(isRefresh: Boolean) {
-        //这里体现为什么要把请求数据包装成pojo
         if (viewModel.dataList.size <= 0) {
             startLoading()
             projectCid?.apply {

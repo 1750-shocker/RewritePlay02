@@ -2,6 +2,7 @@ package com.wzh.base.view.base
 
 import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -85,6 +86,7 @@ abstract class BaseFragment : Fragment(), ILce, BaseFragmentInit {
         onBadNetwork: () -> Unit = {},
         onDataStatus: (T) -> Unit
     ) {
+        Log.e("wocaonima", "setDataStatus: wocaonima", )
         dataLiveData.observe(this) {
             if (it.isSuccess) {
                 val dataList = it.getOrNull()
@@ -106,11 +108,13 @@ abstract class BaseFragment : Fragment(), ILce, BaseFragmentInit {
     //以下是ILce的实现由DefaultLceImpl代理
     @CallSuper
     override fun startLoading() {
+        Log.e("wocaonima", "有人调用了startLoading")
         defaultLce?.startLoading()
     }
 
     @CallSuper
     override fun loadFinished() {
+        Log.e("wocaonima", "有人调用了loadFinished")
         defaultLce?.loadFinished()
     }
 
