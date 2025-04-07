@@ -46,7 +46,6 @@ abstract class BaseHomeBottomTabWidget(
      * 并更新position
      */
     protected open fun changeFragment(position: Int) {
-        Log.e("wocaonima", "changeFragment: ${position}")
         mViewModel.setPage(position)
         //根据position获取目标fragment
         val targetFg: Fragment = mFragments[position]

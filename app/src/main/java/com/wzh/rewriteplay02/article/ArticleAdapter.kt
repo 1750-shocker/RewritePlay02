@@ -39,7 +39,6 @@ class ArticleAdapter(
         parent: ViewGroup,
         viewType: Int
     ): BaseRecyclerHolder<ItemArticleBinding> {
-        Log.e("wocaonima", "走进Adapter了，在填充视图", )
         //从布局文件inflate并构建ViewHolder
         val binding = ItemArticleBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return BaseRecyclerHolder(binding)

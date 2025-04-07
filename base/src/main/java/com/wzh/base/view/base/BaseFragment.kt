@@ -86,7 +86,6 @@ abstract class BaseFragment : Fragment(), ILce, BaseFragmentInit {
         onBadNetwork: () -> Unit = {},
         onDataStatus: (T) -> Unit
     ) {
-        Log.e("wocaonima", "setDataStatus: wocaonima", )
         dataLiveData.observe(this) {
             if (it.isSuccess) {
                 val dataList = it.getOrNull()
@@ -108,13 +107,11 @@ abstract class BaseFragment : Fragment(), ILce, BaseFragmentInit {
     //以下是ILce的实现由DefaultLceImpl代理
     @CallSuper
     override fun startLoading() {
-        Log.e("wocaonima", "有人调用了startLoading")
         defaultLce?.startLoading()
     }
 
     @CallSuper
     override fun loadFinished() {
-        Log.e("wocaonima", "有人调用了loadFinished")
         defaultLce?.loadFinished()
     }
 
