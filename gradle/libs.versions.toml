@@ -33,6 +33,9 @@ fragment = "1.8.5"
 
 glide = "4.16.0"
 datastoreCoreAndroid = "1.1.4"
+webkit = "1.13.0"
+
+
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -78,7 +81,8 @@ fragment-ktx = { group = "androidx.fragment", name = "fragment-ktx", version.ref
 
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }  # 定义 Glide 依赖
 glide-compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "glide" }
-androidx-datastore-core-android = { group = "androidx.datastore", name = "datastore-core-android", version.ref = "datastoreCoreAndroid" }  # 定义 Glide 注解处理器
+androidx-datastore-core-android = { group = "androidx.datastore", name = "datastore-core-android", version.ref = "datastoreCoreAndroid" }
+androidx-webkit = { group = "androidx.webkit", name = "webkit", version.ref = "webkit" }  # 定义 Glide 注解处理器
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

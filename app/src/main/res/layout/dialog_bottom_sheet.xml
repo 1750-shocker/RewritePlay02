@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingTop="@dimen/dp_20"
+    android:background="@color/article_share_bg"
+    android:id="@+id/bottomDialogRoot">
+
+    <LinearLayout
+        android:id="@+id/bottomDialogLlCollect"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        tools:ignore="UseCompoundDrawables"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/bottomDialogLlCopy"
+        app:layout_constraintHorizontal_chainStyle="spread">
+
+        <ImageView
+            android:id="@+id/bottomDialogIvCollect"
+            android:layout_width="@dimen/dp_45"
+            android:layout_height="@dimen/dp_45"
+            android:background="@drawable/bottom_item"
+            android:padding="@dimen/dp_10"
+            android:src="@drawable/ic_collect_selected"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/bottomDialogTvCollect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dp_3"
+            android:text="@string/collection"
+            android:textColor="@color/text_color_dark"
+            android:textSize="@dimen/sp_12" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bottomDialogLlCopy"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        tools:ignore="UseCompoundDrawables"
+        app:layout_constraintStart_toEndOf="@id/bottomDialogLlCollect"
+        app:layout_constraintTop_toTopOf="@id/bottomDialogLlCollect"
+        app:layout_constraintEnd_toStartOf="@id/bottomDialogLlBrowser">
+
+        <ImageView
+            android:id="@+id/bottomDialogIvCopy"
+            android:layout_width="@dimen/dp_45"
+            android:layout_height="@dimen/dp_45"
+            android:background="@drawable/bottom_item"
+            android:padding="@dimen/dp_10"
+            android:src="@drawable/ic_copy"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/bottomDialogTvCopy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dp_3"
+            android:text="@string/copy_link"
+            android:textColor="@color/text_color_dark"
+            android:textSize="@dimen/sp_12" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bottomDialogLlBrowser"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        tools:ignore="UseCompoundDrawables"
+        app:layout_constraintStart_toEndOf="@id/bottomDialogLlCopy"
+        app:layout_constraintTop_toTopOf="@id/bottomDialogLlCopy"
+        app:layout_constraintEnd_toStartOf="@id/bottomDialogLlShare">
+
+        <ImageView
+            android:id="@+id/bottomDialogIvBrowser"
+            android:layout_width="@dimen/dp_45"
+            android:layout_height="@dimen/dp_45"
+            android:background="@drawable/bottom_item"
+            android:padding="@dimen/dp_10"
+            android:src="@drawable/ic_browser"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/bottomDialogTvBrowser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dp_3"
+            android:text="@string/browser_open"
+            android:textColor="@color/text_color_dark"
+            android:textSize="@dimen/sp_12" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bottomDialogLlShare"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        tools:ignore="UseCompoundDrawables"
+        app:layout_constraintStart_toEndOf="@id/bottomDialogLlBrowser"
+        app:layout_constraintTop_toTopOf="@id/bottomDialogLlBrowser"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:id="@+id/bottomDialogIvShare"
+            android:layout_width="@dimen/dp_45"
+            android:layout_height="@dimen/dp_45"
+            android:background="@drawable/bottom_item"
+            android:padding="@dimen/dp_10"
+            android:src="@drawable/ic_share"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/bottomDialogTvShare"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dp_3"
+            android:text="@string/tripartite_sharing"
+            android:textColor="@color/text_color_dark"
+            android:textSize="@dimen/sp_12" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/bottomDialogLlDynamic"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        tools:ignore="UseCompoundDrawables"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/bottomDialogLlReload"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintTop_toBottomOf="@id/bottomDialogLlCollect">
+
+        <ImageView
+            android:id="@+id/bottomDialogIvDynamic"
+            android:layout_width="@dimen/dp_45"
+            android:layout_height="@dimen/dp_45"
+            android:background="@drawable/bottom_item"
+            android:padding="@dimen/dp_10"
+            android:src="@drawable/ic_dynamic"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/bottomDialogTvDynamic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dp_3"
+            android:text="@string/author_trends"
+            android:textColor="@color/text_color_dark"
+            android:textSize="@dimen/sp_12" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bottomDialogLlReload"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        tools:ignore="UseCompoundDrawables"
+        app:layout_constraintStart_toEndOf="@id/bottomDialogLlDynamic"
+        app:layout_constraintTop_toTopOf="@id/bottomDialogLlDynamic"
+        app:layout_constraintEnd_toStartOf="@id/ll1">
+
+        <ImageView
+            android:id="@+id/bottomDialogIvReload"
+            android:layout_width="@dimen/dp_45"
+            android:layout_height="@dimen/dp_45"
+            android:background="@drawable/bottom_item"
+            android:padding="@dimen/dp_10"
+            android:src="@drawable/ic_refresh"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/bottomDialogTvReload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dp_3"
+            android:text="@string/refresh"
+            android:textColor="@color/text_color_dark"
+            android:textSize="@dimen/sp_12" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll1"
+        android:visibility="invisible"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        tools:ignore="UseCompoundDrawables"
+        app:layout_constraintStart_toEndOf="@id/bottomDialogLlReload"
+        app:layout_constraintTop_toTopOf="@id/bottomDialogLlReload"
+        app:layout_constraintEnd_toStartOf="@id/ll2">
+
+        <ImageView
+            android:layout_width="@dimen/dp_45"
+            android:layout_height="@dimen/dp_45"
+            android:background="@drawable/bottom_item"
+            android:padding="@dimen/dp_10"
+            android:src="@drawable/ic_refresh"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dp_3"
+            android:text="@string/refresh"
+            android:textColor="@color/text_color_dark"
+            android:textSize="@dimen/sp_12" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll2"
+        android:visibility="invisible"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        tools:ignore="UseCompoundDrawables"
+        app:layout_constraintStart_toEndOf="@id/ll1"
+        app:layout_constraintTop_toTopOf="@id/ll1"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:layout_width="@dimen/dp_45"
+            android:layout_height="@dimen/dp_45"
+            android:background="@drawable/bottom_item"
+            android:padding="@dimen/dp_10"
+            android:src="@drawable/ic_refresh"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dp_3"
+            android:text="@string/refresh"
+            android:textColor="@color/text_color_dark"
+            android:textSize="@dimen/sp_12" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/bottomDialogTvCancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_18"
+        android:background="@color/article_share_item_bg"
+        android:gravity="center"
+        android:paddingTop="@dimen/dp_13"
+        android:paddingBottom="@dimen/dp_15"
+        android:text="@string/cancel"
+        android:textColor="@color/text_color_dark"
+        android:textSize="@dimen/sp_15"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bottomDialogLlReload"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
