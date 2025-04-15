@@ -1,5 +1,5 @@
 package com.wzh.model.model
-//TODO：这个model是用来干嘛的？从何而来
+//WHY：这个model是用来干嘛的？从何而来
 data class Collect(
     val curPage: Int,
     val datas: List<CollectX>,

@@ -7,19 +7,29 @@ import android.view.LayoutInflater
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
+import com.wzh.base.Play
+import com.wzh.base.util.checkNetworkAvailable
 import com.wzh.base.util.getHtmlText
+import com.wzh.base.util.setSafeListener
+import com.wzh.base.util.showToast
 import com.wzh.base.view.base.BaseRecyclerAdapter
 import com.wzh.model.room.AppDatabase
 import com.wzh.model.room.entity.Article
 import com.wzh.model.room.entity.HISTORY
 import com.wzh.rewriteplay02.R
+import com.wzh.rewriteplay02.article.collect.CollectRepository
+import com.wzh.rewriteplay02.article.collect.CollectRepositoryEntryPoint
 import com.wzh.rewriteplay02.databinding.ItemArticleBinding
+import dagger.hilt.android.EntryPointAccessors
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 /**
  * 从外部获取数据集合
@@ -52,11 +62,12 @@ class ArticleAdapter(
     //也就是说这里的适配器会负责一部分数据更新操作
     override fun onBaseBindViewHolder(binding: ItemArticleBinding, position: Int) {
         val data = articleList[position]
-        //TODO:收藏Repository初始化
+        val colleccRepository =
+            EntryPointAccessors.fromApplication(mContext, CollectRepositoryEntryPoint::class.java)
+                .getCollectRepository()
         binding.apply {
-            if (!TextUtils.isEmpty(data.title)) {
+            if (!TextUtils.isEmpty(data.title))
                 tvArticleTitle.text = getHtmlText(data.title)
-            }
             tvArticleChapter.text = data.superChapterName
             tvArticleAuthor.text =
                 if (TextUtils.isEmpty(data.author)) data.shareUser else data.author
@@ -67,16 +78,39 @@ class ArticleAdapter(
             } else {
                 ivArticleImage.visibility = GONE
             }
-            //TODO:这里忽略两个视图
             ivArticleCollect.isVisible = isShowCollect
             if (data.collect) {
                 ivArticleCollect.setImageResource(R.drawable.ic_favorite_black_24dp)
             } else {
                 ivArticleCollect.setImageResource(R.drawable.ic_favorite_border_black_24dp)
             }
-            //TODO：加一个launch，读取登陆状态，由此判断显示收藏图标与否，设置收藏按钮的特殊监听器
+            launch {
+                Play.isLogin().collectLatest {
+                    ivArticleCollect.isVisible = it
+                }
+            }
+            ivArticleCollect.setSafeListener {
+                launch {
+                    Play.isLogin().collectLatest {
+                        if(it){
+                            if(mContext.checkNetworkAvailable()){
+                               data.collect = !data.collect
+                               setCollect(colleccRepository, data, ivArticleCollect)
+                            }else{
+                                mContext.showToast(mContext.getString(com.wzh.base.R.string.no_network))
+                            }
+                        }else{
+                            mContext.showToast(mContext.getString(com.wzh.base.R.string.not_currently_logged_in))
+                        }
+                    }
+                }
+            }
             articleItem.setOnClickListener {
-                //TODO:通过扩展函数判断网络状态不行就跳弹窗
+                if (!mContext.checkNetworkAvailable()) {
+                    mContext.showToast(mContext.getString(com.wzh.base.R.string.no_network))
+                    return@setOnClickListener
+                }
+                ArticleActivity.actionStart(mContext, data)
                 val articleDao = AppDatabase.getDatabase(mContext).articleDao()
                 launch(Dispatchers.IO) {
                     if (articleDao.getArticle(data.id, HISTORY) == null) {
@@ -87,6 +121,39 @@ class ArticleAdapter(
                 }
             }
         }
+
     }
 
+    private fun setCollect(
+        collectRepository: CollectRepository,
+        article: Article,
+        articleTvCollect: ImageView
+    ) {
+        launch(Dispatchers.IO) {
+            val articleDao = AppDatabase.getDatabase(mContext).articleDao()
+            if (!article.collect) {
+                val cancelCollects = collectRepository.cancelCollects(article.id)
+                if (cancelCollects.errorCode == 0) {
+                    withContext(Dispatchers.Main) {
+                        articleTvCollect.setImageResource(R.drawable.ic_favorite_border_black_24dp)
+                        mContext.showToast(mContext.getString(com.wzh.base.R.string.collection_cancelled_successfully))
+                        articleDao.update(article)
+                    }
+                } else {
+                    mContext.showToast(mContext.getString(com.wzh.base.R.string.failed_to_cancel_collection))
+                }
+            } else {
+                val toCollects = collectRepository.toCollects(article.id)
+                if (toCollects.errorCode == 0) {
+                    withContext(Dispatchers.Main) {
+                        articleTvCollect.setImageResource(R.drawable.ic_favorite_black_24dp)
+                        mContext.showToast(mContext.getString(com.wzh.base.R.string.collection_successful))
+                        articleDao.update(article)
+                    }
+                } else {
+                    mContext.showToast(mContext.getString(com.wzh.base.R.string.collection_failed))
+                }
+            }
+        }
+    }
 }

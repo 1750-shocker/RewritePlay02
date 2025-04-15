@@ -38,7 +38,7 @@ class ArticleActivity : BaseActivity(), View.OnClickListener {
     private var pageId=-1
     private var originId=-1
     private var userId= -1
-    private var isCollection =-1
+    private var isCollect =-1
     private lateinit var bottomDialogIvCollect: ImageView
     private lateinit var bottomDialogTvCollect: TextView
     private var bottomSheetDialog: BottomSheetDialog?=null
@@ -52,7 +52,7 @@ class ArticleActivity : BaseActivity(), View.OnClickListener {
         pageName = intent.getStringExtra(PAGE_NAME)?:""
         pageUrl = intent.getStringExtra(PAGE_URL)?:""
         pageId = intent.getIntExtra(PAGE_ID,-1)
-        isCollection = intent.getIntExtra(IS_COLLECTION, -1)
+        isCollect = intent.getIntExtra(IS_COLLECTION, -1)
         originId = intent.getIntExtra(ORIGIN_ID,-1)
         userId = intent.getIntExtra(USER_ID, -1)
         binding.articleTxtTitle.text = getHtmlText(pageName)
@@ -81,7 +81,17 @@ class ArticleActivity : BaseActivity(), View.OnClickListener {
 
             R.id.bottomDialogLlCollect -> {
                 bottomSheetDialog?.dismiss()
-                TODO(viewModel.setCollect())
+                viewModel.setCollect(isCollect, pageId, originId ){
+                    if(it){
+                        isCollect = 1
+                        bottomDialogIvCollect.setImageResource(R.drawable.ic_collect_selected)
+                        bottomDialogTvCollect.text =getString(com.wzh.base.R.string.cancel_collection)
+                    }else{
+                        isCollect = 0
+                        bottomDialogIvCollect.setImageResource(R.drawable.ic_collect)
+                        bottomDialogTvCollect.text =getString(com.wzh.base.R.string.collection)
+                    }
+                }
             }
 
             R.id.bottomDialogLlCopy -> {
@@ -99,7 +109,7 @@ class ArticleActivity : BaseActivity(), View.OnClickListener {
             }
             R.id.bottomDialogLlDynamic -> {
                 bottomSheetDialog?.dismiss()
-                ShareActivity.actionStart(this, false, userId)
+                //TODO:ShareActivity.actionStart(this, false, userId),ShareActivity未完成
             }
             R.id.bottomDialogLlReload -> {
                 bottomSheetDialog?.dismiss()
@@ -139,7 +149,7 @@ class ArticleActivity : BaseActivity(), View.OnClickListener {
             dialogView.findViewById<LinearLayout>(R.id.bottomDialogLlDynamic)
         val bottomDialogLlReload = dialogView.findViewById<LinearLayout>(R.id.bottomDialogLlReload)
         val bottomDialogTvCancel = dialogView.findViewById<TextView>(R.id.bottomDialogTvCancel)
-        if (isCollection == 1) {
+        if (isCollect == 1) {
             bottomDialogIvCollect.setImageResource(R.drawable.ic_collect_selected)
             bottomDialogTvCollect.text = getString(com.wzh.base.R.string.cancel_collection)
         } else {
