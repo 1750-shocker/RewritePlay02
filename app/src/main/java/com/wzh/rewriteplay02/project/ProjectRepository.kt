@@ -39,11 +39,13 @@ class ProjectRepository @Inject constructor(private val application: Application
     }
 
     fun getProjectList(query: QueryArticle) = liveDataFire {
-        if (query.page == 1) {
-            val dataStore = DataStoreUtils
+        if (query.page == 1) {//第一页，为了快速加载，先从数据库拿数据，拿不到再去网络拿
+
             val articleList =
                 articleDao.getArticleListForCid(PROJECT, query.cid)
             var downArticleTime = 0L
+            //从dataStore拿当时缓存的时间戳
+            val dataStore = DataStoreUtils
             dataStore.readLongFlow(DOWN_PROJECT_ARTICLE_TIME, System.currentTimeMillis()).first {
                 downArticleTime = it
                 true

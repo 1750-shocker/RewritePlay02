@@ -50,4 +50,22 @@ object Play {
             }
         }
     }
+
+    fun isLoginResult(): Boolean {
+        return if (::dataStore.isInitialized) {
+            dataStore.readBooleanData(IS_LOGIN)
+        } else {
+            false
+        }
+    }
+    /**
+     * 注销用户登录。
+     */
+    fun logout() {
+        dataStore.clearSync()
+    }
+    val nickName: String
+        get() = dataStore.readStringData(NICK_NAME)
+    val username: String
+        get() = dataStore.readStringData(USERNAME)
 }

@@ -243,4 +243,12 @@ object DataStoreUtils {
             else -> throw IllegalArgumentException("This type can be saved into DataStore")
         }
     }
+
+    fun clearSync() {
+        runBlocking {
+            dataStore.edit {
+                it.clear()
+            }
+        }
+    }
 }

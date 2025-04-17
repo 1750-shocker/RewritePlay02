@@ -2,7 +2,6 @@ package com.wzh.rewriteplay02.article
 
 import android.content.Context
 import android.text.TextUtils
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View.GONE
 import android.view.View.VISIBLE
@@ -62,7 +61,7 @@ class ArticleAdapter(
     //也就是说这里的适配器会负责一部分数据更新操作
     override fun onBaseBindViewHolder(binding: ItemArticleBinding, position: Int) {
         val data = articleList[position]
-        val colleccRepository =
+        val collectRepository =
             EntryPointAccessors.fromApplication(mContext, CollectRepositoryEntryPoint::class.java)
                 .getCollectRepository()
         binding.apply {
@@ -95,7 +94,7 @@ class ArticleAdapter(
                         if(it){
                             if(mContext.checkNetworkAvailable()){
                                data.collect = !data.collect
-                               setCollect(colleccRepository, data, ivArticleCollect)
+                               setCollect(collectRepository, data, ivArticleCollect)
                             }else{
                                 mContext.showToast(mContext.getString(com.wzh.base.R.string.no_network))
                             }
@@ -127,7 +126,7 @@ class ArticleAdapter(
     private fun setCollect(
         collectRepository: CollectRepository,
         article: Article,
-        articleTvCollect: ImageView
+        articleIvCollect: ImageView
     ) {
         launch(Dispatchers.IO) {
             val articleDao = AppDatabase.getDatabase(mContext).articleDao()
@@ -135,7 +134,7 @@ class ArticleAdapter(
                 val cancelCollects = collectRepository.cancelCollects(article.id)
                 if (cancelCollects.errorCode == 0) {
                     withContext(Dispatchers.Main) {
-                        articleTvCollect.setImageResource(R.drawable.ic_favorite_border_black_24dp)
+                        articleIvCollect.setImageResource(R.drawable.ic_favorite_border_black_24dp)
                         mContext.showToast(mContext.getString(com.wzh.base.R.string.collection_cancelled_successfully))
                         articleDao.update(article)
                     }
@@ -146,7 +145,7 @@ class ArticleAdapter(
                 val toCollects = collectRepository.toCollects(article.id)
                 if (toCollects.errorCode == 0) {
                     withContext(Dispatchers.Main) {
-                        articleTvCollect.setImageResource(R.drawable.ic_favorite_black_24dp)
+                        articleIvCollect.setImageResource(R.drawable.ic_favorite_black_24dp)
                         mContext.showToast(mContext.getString(com.wzh.base.R.string.collection_successful))
                         articleDao.update(article)
                     }

@@ -2,7 +2,9 @@ package com.wzh.base.util
 
 import android.app.Activity
 import android.content.Context
+import android.view.View
 import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat.Type.ime
 
 /**
  * 设置透明状态栏
@@ -20,4 +22,15 @@ fun Context?.getStatusBarHeight(): Int {
         result = resources.getDimensionPixelOffset(resId)
     }
     return result
+}
+
+/**
+ * 隐藏ime
+ */
+fun Activity?.hideIme(currentFocusView: View? = null) {
+    if (this == null || window == null) return
+    val view = currentFocusView ?: window.decorView
+    view.clearFocus()
+    val controller = WindowCompat.getInsetsController(window, view)
+    controller.hide(ime())
 }

@@ -12,6 +12,9 @@ interface ProjectTabDao {
     @Query("SELECT * FROM project_classify where order_classify>144999 and order_classify<145050")
     suspend fun getProjectTabList():List<ProjectTab>
 
+    @Query("SELECT * FROM project_classify where order_classify>189999 and order_classify<190020")
+    suspend fun getAllOfficial(): List<ProjectTab>
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertList(projectTabList: List<ProjectTab>)
 

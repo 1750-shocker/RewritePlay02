@@ -8,6 +8,8 @@ import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.wzh.rewriteplay02.R
+import com.wzh.rewriteplay02.official.OfficialAccountFragment
+import com.wzh.rewriteplay02.profile.ProfileFragment
 import com.wzh.rewriteplay02.project.ProjectFragment
 
 abstract class BaseHomeBottomTabWidget(
@@ -21,8 +23,12 @@ abstract class BaseHomeBottomTabWidget(
 
     private var mFragments: ArrayList<Fragment> = arrayListOf()
     private var currentFragment: Fragment? = null
+
     //在这里自己新建所有主页面的Fragment
     private val mProjectFragment: ProjectFragment by lazy { ProjectFragment.newInstance() }
+    private val mOfficialAccountFragment: OfficialAccountFragment by lazy { OfficialAccountFragment.newInstance() }
+    private val mProfileFragment: ProfileFragment by lazy { ProfileFragment.newInstance() }
+
     //外部调用的init，传入两个关键对象
     fun init(fm: FragmentManager?, viewModel: MainViewModel) {
         mFragmentManager = fm
@@ -37,7 +43,7 @@ abstract class BaseHomeBottomTabWidget(
             }
         }
         //调用自己写的事务，把当前位置传入
-        changeFragment(viewModel.getPage()?:0)
+        changeFragment(viewModel.getPage() ?: 0)
     }
 
     /**
@@ -50,15 +56,15 @@ abstract class BaseHomeBottomTabWidget(
         //根据position获取目标fragment
         val targetFg: Fragment = mFragments[position]
         //执行事务：先隐藏当前fragment，再显示目标fragment
-        mFragmentManager?.beginTransaction()?.apply{
-            currentFragment?.apply{
+        mFragmentManager?.beginTransaction()?.apply {
+            currentFragment?.apply {
                 hide(this)
             }
             //在需要频繁切换 Fragment 的场景中优化 Fragment 的添加、移除、显示和隐藏操作的执行顺序
             setReorderingAllowed(true)
             if (!targetFg.isAdded) {
                 add(R.id.fl_content, targetFg).commit()
-            }else{
+            } else {
                 show(targetFg).commit()
             }
         }
@@ -71,13 +77,16 @@ abstract class BaseHomeBottomTabWidget(
      * 所以可以在fragment的伴生对象中，新建一个newInstance方法，返回对应的fragment
      */
     private fun getCurrentFragment(position: Int): Fragment {
-        return when(position){
-            0 -> mProjectFragment
+        return when (position) {
+            1 -> mProjectFragment
+            2 -> mOfficialAccountFragment
+            3 -> mProfileFragment
             else -> mProjectFragment
         }
     }
-    open fun destroy(){
-        mFragmentManager?.apply{
+
+    open fun destroy() {
+        mFragmentManager?.apply {
             if (!isDestroyed) {
                 mFragmentManager = null
             }

@@ -49,6 +49,7 @@ class ArticleActivity : BaseActivity(), View.OnClickListener {
     }
 
     override fun initData() {
+        //提供了actionStart，其中定义了需要的参数，根源从article数据类中提取
         pageName = intent.getStringExtra(PAGE_NAME)?:""
         pageUrl = intent.getStringExtra(PAGE_URL)?:""
         pageId = intent.getIntExtra(PAGE_ID,-1)

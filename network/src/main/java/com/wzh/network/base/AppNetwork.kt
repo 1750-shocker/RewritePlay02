@@ -1,6 +1,8 @@
 package com.wzh.network.base
 
 import com.wzh.network.service.CollectService
+import com.wzh.network.service.LoginService
+import com.wzh.network.service.OfficialService
 import com.wzh.network.service.ProjectService
 import com.wzh.network.service.ShareService
 
@@ -19,4 +21,13 @@ object AppNetwork {
     suspend fun getShareList(cid: Int, page: Int) = shareService.getShareList(cid, page)
     suspend fun deleteMyArticle(cid: Int) = shareService.deleteMyArticle(cid)
     suspend fun shareArticle(title: String, link: String) = shareService.shareArticle(title, link)
+
+    private val officialService = ServiceCreator.create(OfficialService::class.java)
+    suspend fun getWxArticleTree() = officialService.getWxArticleTree()
+    suspend fun getWxArticle(page: Int, cid: Int) = officialService.getWxArticle(page, cid)
+
+    private val loginService = ServiceCreator.create(LoginService::class.java)
+    suspend fun getLogin(username: String, password: String) = loginService.getLogin(username, password)
+    suspend fun getRegister(username: String, password: String, repassword: String) = loginService.getRegister(username, password, repassword)
+    suspend fun getLogout() = loginService.getLogout()
 }

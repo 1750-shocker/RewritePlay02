@@ -16,7 +16,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @ActivityRetainedScoped
-class ArticleRepository @Inject constructor(val application: Application) :
+class ArticleRepository @Inject constructor(private val application: Application) :
     CoroutineScope by MainScope() {
 
     suspend fun setCollect(
@@ -51,7 +51,7 @@ class ArticleRepository @Inject constructor(val application: Application) :
                 if (cancelCollects.errorCode == 0) {
                     application.showToast(com.wzh.base.R.string.collection_cancelled_successfully)
                     ArticleBroadCast.sendArticleChangeReceiver(application)
-                    collectListener.invoke(false)
+                    collectListener.invoke(false)//TODO：这个地方的逻辑传进来一些UI操作，需要切换回主线程，这里还是IO线程不对劲，看看源代码和编译的软件存不存在bug
                 } else {
                     application.showToast(com.wzh.base.R.string.failed_to_cancel_collection)
                 }
