@@ -68,4 +68,12 @@ object Play {
         get() = dataStore.readStringData(NICK_NAME)
     val username: String
         get() = dataStore.readStringData(USERNAME)
+
+    fun setLogin(isLogin: Boolean) {
+        dataStore.saveSyncBooleanData(IS_LOGIN, isLogin)
+    }
+    fun setUserInfo(nickname: String, username: String) {
+        dataStore.saveSyncStringData(NICK_NAME, nickname)
+        dataStore.saveSyncStringData(USERNAME, username)
+    }
 }

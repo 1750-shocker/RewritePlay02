@@ -13,8 +13,8 @@ import com.wzh.rewriteplay02.R
 import com.wzh.rewriteplay02.article.ArticleBroadCast
 import com.wzh.rewriteplay02.base.ArticleCollectBaseFragment
 import com.wzh.rewriteplay02.databinding.FragmentProfileBinding
-import com.wzh.rewriteplay02.main.login.AccountRepository
-import com.wzh.rewriteplay02.profile.share.ShareActivity
+import com.wzh.rewriteplay02.profile.login.AccountRepository
+import com.wzh.rewriteplay02.profile.login.LoginActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -143,7 +143,7 @@ class ProfileFragment : ArticleCollectBaseFragment(), View.OnClickListener {
 
     private fun personalInformation() {
         if (!Play.isLoginResult()) {
-            //TODO:LoginActivity.actionStart(requireContext())
+           LoginActivity.actionStart(requireContext())
         } else {
             //TODO:LShareActivity.actionStart(requireContext(), true)
         }

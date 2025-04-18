@@ -1,4 +1,4 @@
-package com.wzh.rewriteplay02.main.login
+package com.wzh.rewriteplay02.profile.login
 
 import com.wzh.network.base.AppNetwork
 import com.wzh.rewriteplay02.base.liveDataModel
