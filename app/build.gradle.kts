@@ -59,4 +59,6 @@ dependencies {
     ksp(libs.hilt.android.compiler)
     ksp(libs.hilt.compiler)
     api(libs.material)
+
+    implementation(libs.youth.banner)
 }

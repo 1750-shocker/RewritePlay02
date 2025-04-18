@@ -35,6 +35,8 @@ glide = "4.16.0"
 datastoreCoreAndroid = "1.1.4"
 webkit = "1.13.0"
 
+banner = "2.2.2"
+
 
 
 [libraries]
@@ -83,6 +85,8 @@ glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }  #
 glide-compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "glide" }
 androidx-datastore-core-android = { group = "androidx.datastore", name = "datastore-core-android", version.ref = "datastoreCoreAndroid" }
 androidx-webkit = { group = "androidx.webkit", name = "webkit", version.ref = "webkit" }  # 定义 Glide 注解处理器
+
+youth-banner = { group = "io.github.youth5201314", name = "banner", version.ref = "banner" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

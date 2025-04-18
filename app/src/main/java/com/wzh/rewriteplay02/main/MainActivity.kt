@@ -23,7 +23,7 @@ class MainActivity : BaseActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private val viewModel by viewModels<MainViewModel>()
-    private var isPort = true
+    var isPort = true
     private var exitTime: Long = 0
 
     companion object {

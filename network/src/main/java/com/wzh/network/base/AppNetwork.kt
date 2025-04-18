@@ -1,6 +1,7 @@
 package com.wzh.network.base
 
 import com.wzh.network.service.CollectService
+import com.wzh.network.service.HomePageService
 import com.wzh.network.service.LoginService
 import com.wzh.network.service.OfficialService
 import com.wzh.network.service.ProjectService
@@ -27,7 +28,19 @@ object AppNetwork {
     suspend fun getWxArticle(page: Int, cid: Int) = officialService.getWxArticle(page, cid)
 
     private val loginService = ServiceCreator.create(LoginService::class.java)
-    suspend fun getLogin(username: String, password: String) = loginService.getLogin(username, password)
-    suspend fun getRegister(username: String, password: String, repassword: String) = loginService.getRegister(username, password, repassword)
+    suspend fun getLogin(username: String, password: String) =
+        loginService.getLogin(username, password)
+
+    suspend fun getRegister(username: String, password: String, repassword: String) =
+        loginService.getRegister(username, password, repassword)
+
     suspend fun getLogout() = loginService.getLogout()
+
+    private val homePageService = ServiceCreator.create(HomePageService::class.java)
+    suspend fun getBanner() = homePageService.getBanner()
+    suspend fun getTopArticleList() = homePageService.getTopArticle()
+    suspend fun getArticleList(page: Int) = homePageService.getArticle(page)
+    suspend fun getHotKey() = homePageService.getHotKey()
+    suspend fun getQueryArticleList(page: Int, k: String) =
+        homePageService.getQueryArticleList(page, k)
 }

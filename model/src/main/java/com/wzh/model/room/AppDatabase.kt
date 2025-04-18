@@ -5,12 +5,16 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.wzh.model.room.dao.ArticleDao
+import com.wzh.model.room.dao.BannerBeanDao
+import com.wzh.model.room.dao.HotKeyDao
 import com.wzh.model.room.dao.ProjectTabDao
 import com.wzh.model.room.entity.Article
+import com.wzh.model.room.entity.BannerBean
+import com.wzh.model.room.entity.HotKey
 import com.wzh.model.room.entity.ProjectTab
 
 
-@Database(entities = [ProjectTab::class, Article::class], version = 1)
+@Database(entities = [ProjectTab::class, Article::class , HotKey::class, BannerBean::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
 
     companion object {
@@ -35,5 +39,7 @@ abstract class AppDatabase : RoomDatabase() {
 
     abstract fun projectTabDao(): ProjectTabDao
     abstract fun articleDao(): ArticleDao
+    abstract fun bannerBeanDao(): BannerBeanDao
+    abstract fun hotKeyDao(): HotKeyDao
 
 }

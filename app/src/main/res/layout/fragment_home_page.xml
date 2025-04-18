@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.wzh.base.view.custom.TitleBar
+        android:id="@+id/homeTitleBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:backImageVisible="false"
+        app:titleName="@string/home_page" />
+
+    <com.youth.banner.Banner
+        android:id="@+id/homeBanner"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_180"
+        android:layout_marginHorizontal="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_10" />
+
+    <com.youth.banner.Banner
+        android:id="@+id/homeBanner2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dp_10"
+        android:layout_marginVertical="@dimen/dp_3"
+        android:visibility="gone" />
+
+    <com.wzh.rewriteplay02.base.ToTopRecyclerView
+        android:id="@+id/homeToTopRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

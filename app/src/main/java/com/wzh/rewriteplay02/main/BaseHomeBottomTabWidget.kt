@@ -8,6 +8,7 @@ import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.wzh.rewriteplay02.R
+import com.wzh.rewriteplay02.home.HomePageFragment
 import com.wzh.rewriteplay02.official.OfficialAccountFragment
 import com.wzh.rewriteplay02.profile.ProfileFragment
 import com.wzh.rewriteplay02.project.ProjectFragment
@@ -28,6 +29,7 @@ abstract class BaseHomeBottomTabWidget(
     private val mProjectFragment: ProjectFragment by lazy { ProjectFragment.newInstance() }
     private val mOfficialAccountFragment: OfficialAccountFragment by lazy { OfficialAccountFragment.newInstance() }
     private val mProfileFragment: ProfileFragment by lazy { ProfileFragment.newInstance() }
+    private val mHomePageFragment: HomePageFragment by lazy { HomePageFragment.newInstance() }
 
     //外部调用的init，传入两个关键对象
     fun init(fm: FragmentManager?, viewModel: MainViewModel) {
@@ -78,10 +80,11 @@ abstract class BaseHomeBottomTabWidget(
      */
     private fun getCurrentFragment(position: Int): Fragment {
         return when (position) {
+            0 -> mHomePageFragment
             1 -> mProjectFragment
             2 -> mOfficialAccountFragment
             3 -> mProfileFragment
-            else -> mProjectFragment
+            else ->  mProjectFragment
         }
     }
 
