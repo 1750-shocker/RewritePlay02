@@ -2,6 +2,7 @@ package com.wzh.rewriteplay02.article
 
 import android.content.Context
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View.GONE
 import android.view.View.VISIBLE
@@ -93,6 +94,7 @@ class ArticleAdapter(
                     Play.isLogin().collectLatest {
                         if(it){
                             if(mContext.checkNetworkAvailable()){
+                                //WHY:这里有逻辑冲突，自动先亮一下再灭一下，弹出toast
                                data.collect = !data.collect
                                setCollect(collectRepository, data, ivArticleCollect)
                             }else{
@@ -135,6 +137,7 @@ class ArticleAdapter(
                 if (cancelCollects.errorCode == 0) {
                     withContext(Dispatchers.Main) {
                         articleIvCollect.setImageResource(R.drawable.ic_favorite_border_black_24dp)
+                        Log.d("wzhhhh", "setCollect: 不知道为什么执行到这里")
                         mContext.showToast(mContext.getString(com.wzh.base.R.string.collection_cancelled_successfully))
                         articleDao.update(article)
                     }

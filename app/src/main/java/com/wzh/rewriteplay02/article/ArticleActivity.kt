@@ -81,7 +81,7 @@ class ArticleActivity : BaseActivity(), View.OnClickListener {
             }
 
             R.id.bottomDialogLlCollect -> {
-                bottomSheetDialog?.dismiss()
+//                bottomSheetDialog?.dismiss()
                 viewModel.setCollect(isCollect, pageId, originId ){
                     if(it){
                         isCollect = 1
