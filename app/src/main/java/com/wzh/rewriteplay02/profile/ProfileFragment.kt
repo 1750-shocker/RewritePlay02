@@ -1,6 +1,7 @@
 package com.wzh.rewriteplay02.profile
 
 import android.app.AlertDialog
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,6 +24,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class ProfileFragment : ArticleCollectBaseFragment(), View.OnClickListener {
 
+    private val TAG = "wzhHHH"
     private var binding: FragmentProfileBinding? = null
 
     @Inject
@@ -104,6 +106,7 @@ class ProfileFragment : ArticleCollectBaseFragment(), View.OnClickListener {
             profileTitleBar.setRightImgOnClickListener {
                 //TODO:RankActivity.actionStart(requireContext)
             }
+            profileBtnLogout.setOnClickListener(this@ProfileFragment)
             profileIvHead.setOnClickListener(this@ProfileFragment)
             profileTvName.setOnClickListener(this@ProfileFragment)
             profileTvRank.setOnClickListener(this@ProfileFragment)
@@ -130,6 +133,7 @@ class ProfileFragment : ArticleCollectBaseFragment(), View.OnClickListener {
     }
 
     private fun setLogout() {
+        Log.d(TAG, "setLogout: ")
         val view = LayoutInflater.from(context).inflate(R.layout.layout_logout, null)
         view.apply {
             findViewById<TextView>(R.id.logout_cancel).setOnClickListener(this@ProfileFragment)
@@ -142,6 +146,7 @@ class ProfileFragment : ArticleCollectBaseFragment(), View.OnClickListener {
     }
 
     private fun personalInformation() {
+        Log.d(TAG, "personalInformation: 点击了头像")
         if (!Play.isLoginResult()) {
            LoginActivity.actionStart(requireContext())
         } else {

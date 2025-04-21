@@ -61,4 +61,6 @@ dependencies {
     api(libs.material)
 
     implementation(libs.youth.banner)
+
+    implementation(libs.google.flexbox)
 }

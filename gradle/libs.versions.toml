@@ -37,6 +37,7 @@ webkit = "1.13.0"
 
 banner = "2.2.2"
 
+flexbox = "3.0.0"
 
 
 [libraries]
@@ -88,6 +89,7 @@ androidx-webkit = { group = "androidx.webkit", name = "webkit", version.ref = "w
 
 youth-banner = { group = "io.github.youth5201314", name = "banner", version.ref = "banner" }
 
+google-flexbox = { group = "com.google.android.flexbox", name = "flexbox", version.ref = "flexbox" }
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

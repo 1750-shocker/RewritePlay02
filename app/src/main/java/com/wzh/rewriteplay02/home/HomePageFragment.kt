@@ -73,7 +73,7 @@ class HomePageFragment : ArticleCollectBaseFragment() {
                 }
             }*/
             homeTitleBar.setRightImgOnClickListener {
-                //TODO:SearchActivity.actionStart(requireContext())
+                SearchActivity.actionStart(requireContext())
                 //WHY:这里根据提示将源代码中的过时方法替换了
 //                activity?.overrideActivityTransition(OVERRIDE_TRANSITION_OPEN, R.anim.search_push_in, R.anim.fake_anim)
                 activity?.overridePendingTransition(R.anim.search_push_in, R.anim.fake_anim)

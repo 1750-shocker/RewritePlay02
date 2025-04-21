@@ -28,7 +28,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class LoginActivity : BaseActivity(), View.OnClickListener, TextWatcher {
-
+    private var isLoginPage = 1.0
     private lateinit var binding: ActivityLoginBinding
     private val viewModel by viewModels<LoginViewModel>()
     private var mUserName = ""
@@ -51,10 +51,12 @@ class LoginActivity : BaseActivity(), View.OnClickListener, TextWatcher {
                 Logging -> {
                     toProgressVisible(true)
                 }
+
                 is LoginSuccess -> {
                     toProgressVisible(false)
                     finish()
                 }
+
                 LoginError -> {
                     toProgressVisible(false)
                 }
@@ -66,7 +68,14 @@ class LoginActivity : BaseActivity(), View.OnClickListener, TextWatcher {
         when (v.id) {
             R.id.loginTvRegister -> {
                 flipAnimatorXViewShow(binding.loginInputElements)
+                if (isLoginPage > 0) {
+                    binding.loginTitle.text = "注册"
+                } else {
+                    binding.loginTitle.text = "登录"
+                }
+                isLoginPage = -isLoginPage
             }
+
             R.id.loginButton -> {
                 loginOrRegister()
             }
@@ -111,7 +120,8 @@ class LoginActivity : BaseActivity(), View.OnClickListener, TextWatcher {
             return false
         }
         if (TextUtils.isEmpty(mPassWord) || mPassWord.length < 6) {
-            binding.loginPassNumberEdit.error = getString(com.wzh.base.R.string.enter_password_format)
+            binding.loginPassNumberEdit.error =
+                getString(com.wzh.base.R.string.enter_password_format)
             return false
         }
         if (!checkNetworkAvailable()) {

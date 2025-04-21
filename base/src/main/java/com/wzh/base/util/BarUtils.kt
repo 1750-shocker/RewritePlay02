@@ -2,6 +2,8 @@ package com.wzh.base.util
 
 import android.app.Activity
 import android.content.Context
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat.Type.ime
@@ -33,4 +35,16 @@ fun Activity?.hideIme(currentFocusView: View? = null) {
     view.clearFocus()
     val controller = WindowCompat.getInsetsController(window, view)
     controller.hide(ime())
+}
+
+fun Activity?.showIme(currentFocusView: View? = null) {
+    if (this == null || window == null) return
+    val view = currentFocusView ?: window.decorView
+    view.isFocusable = true
+    view.requestFocus()
+    view.findFocus()
+    val controller = WindowCompat.getInsetsController(window, view)
+    Handler(Looper.getMainLooper()).postDelayed({
+        controller.show(ime())
+    }, 100L)
 }

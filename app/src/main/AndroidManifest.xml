@@ -25,6 +25,12 @@
             android:name=".profile.login.LoginActivity"
             android:exported="false" />
         <activity
+            android:name=".home.search.article.ArticleListActivity"
+            android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize" />
+        <activity
+            android:name=".home.search.SearchActivity"
+            android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize" />
+        <activity
             android:name=".main.MainActivity"
             android:exported="true">
             <intent-filter>

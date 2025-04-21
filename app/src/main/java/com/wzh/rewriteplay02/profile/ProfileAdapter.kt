@@ -3,9 +3,11 @@ package com.wzh.rewriteplay02.profile
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import com.wzh.base.Play
 import com.wzh.base.view.base.BaseRecyclerAdapter
 import com.wzh.rewriteplay02.databinding.AdapterProfileBinding
+import com.wzh.rewriteplay02.profile.login.LoginActivity
 
 class ProfileAdapter(
     private val mContext: Context,
@@ -42,7 +44,7 @@ class ProfileAdapter(
                 if (Play.isLoginResult()) {
                     //TODO:UserRankActivity.actionStart(mContext)
                 } else {
-                    //TODO:LoginActivity.actionStart(mContext)
+                    Toast.makeText(mContext, "请先登录", Toast.LENGTH_SHORT).show()
                 }
             }
 

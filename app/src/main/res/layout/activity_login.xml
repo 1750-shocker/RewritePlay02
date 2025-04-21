@@ -23,8 +23,15 @@
         android:orientation="vertical"
         android:padding="24dp">
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_100"
+            android:background="@color/white" />
+
+
         <!-- 标题 -->
         <TextView
+            android:id="@+id/loginTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
@@ -37,9 +44,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            app:hint="用户名"
-            app:hintEnabled="true">
+            android:layout_marginBottom="16dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/loginUserNumberEdit"
@@ -55,9 +60,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
-            app:endIconMode="password_toggle"
-            app:hint="密码"
-            app:hintEnabled="true">
+            app:endIconMode="password_toggle">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/loginPassNumberEdit"
