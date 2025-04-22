@@ -31,6 +31,10 @@
             android:name=".home.search.SearchActivity"
             android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize" />
         <activity
+            android:name=".article.collect.CollectListActivity"
+            android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize" />
+        <activity android:name=".profile.history.BrowseHistoryActivity" />
+        <activity
             android:name=".main.MainActivity"
             android:exported="true">
             <intent-filter>

@@ -6,7 +6,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.wzh.base.Play
 import com.wzh.base.view.base.BaseRecyclerAdapter
+import com.wzh.rewriteplay02.article.ArticleActivity
+import com.wzh.rewriteplay02.article.collect.CollectListActivity
 import com.wzh.rewriteplay02.databinding.AdapterProfileBinding
+import com.wzh.rewriteplay02.profile.history.BrowseHistoryActivity
 import com.wzh.rewriteplay02.profile.login.LoginActivity
 
 class ProfileAdapter(
@@ -48,16 +51,35 @@ class ProfileAdapter(
                 }
             }
 
+            mContext.getString(com.wzh.base.R.string.my_collection) -> {
+                if (Play.isLoginResult()) {
+                    CollectListActivity.actionStart(mContext)
+                } else {
+                    LoginActivity.actionStart(mContext)
+                }
+            }
+
             mContext.getString(com.wzh.base.R.string.mine_blog) -> {
-                //TODO:ArticleActivity.actionStart(mContext, mContext.getString(R.string.mine_blog),"pageUrl")
+                ArticleActivity.actionStart(
+                    mContext, mContext.getString(com.wzh.base.R.string.mine_blog),
+                    "https://blog.csdn.net/qq_45205637?type=blog"
+                )
+            }
+
+            mContext.getString(com.wzh.base.R.string.browsing_history) -> {
+                BrowseHistoryActivity.actionStart(mContext)
             }
 
             mContext.getString(com.wzh.base.R.string.mine_nuggets) -> {
-                //TODO:ArticleActivity.actionStart(mContext, mContext.getString(R.string.mine_nuggets),"pageUrl")
+                ArticleActivity.actionStart(
+                    mContext,
+                    mContext.getString(com.wzh.base.R.string.mine_nuggets),
+                    "https://juejin.cn/user/3153816165032333"
+                )
             }
 
             mContext.getString(com.wzh.base.R.string.github) -> {
-                //TODO:AboutActivity.actionStart(mContext,mContext.getString(R.string.mine_github), "pageUrl")
+                ArticleActivity.actionStart(mContext,mContext.getString(com.wzh.base.R.string.mine_github), "https://github.com/1750-shocker")
             }
 
             mContext.getString(com.wzh.base.R.string.about_me) -> {
