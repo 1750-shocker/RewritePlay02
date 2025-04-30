@@ -1,4 +1,4 @@
-package com.wzh.rewriteplay02.article.collect
+package com.wzh.rewriteplay02.profile.collect
 
 import android.content.Context
 import android.content.Intent
@@ -17,25 +17,19 @@ class CollectListActivity : BaseListActivity() {
         binding.baseListTitleBar.setTitle(getString(com.wzh.base.R.string.my_collection))
         setDataStatus(viewModel.dataLiveData) {
             if (page == 1 && viewModel.dataList.size > 0) {
+                val temp = viewModel.dataList.size
                 viewModel.dataList.clear()
+                //BUG:增加数据刷新和优化插入方法，修复收藏列表下拉刷新会（玩安卓会崩溃）（我的会闪现首页并覆盖当前页）
+                articleAdapter.notifyItemRangeRemoved(0, temp)
             }
+            val startPosition = viewModel.dataList.size
             viewModel.dataList.addAll(it.datas)
-            articleAdapter.notifyItemInserted(it.datas.size)
+            articleAdapter.notifyItemRangeInserted(startPosition, it.datas.size)
         }
     }
 
     override fun initView() {
-//        super.initView()
-        //BUG：收藏列表下拉刷新会（玩安卓会崩溃）（我的会闪现首页并覆盖当前页）
-        binding.baseListToTop.setRecyclerViewLayoutManager(resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT)
-        binding.baseListToTop.setOnRefreshListener({
-            page = 1
-            getDataList()
-        }, {
-//            page++
-//            getDataList()
-        })
-
+        super.initView()
         articleAdapter = CollectAdapter(this, viewModel.dataList, lifecycleScope)
         binding.baseListToTop.setAdapter(articleAdapter)
     }

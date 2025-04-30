@@ -50,11 +50,14 @@ class ProjectListFragment : BaseListFragment() {
             }) {
             //数据请求正常后进行填充
             if (page == 1 && viewModel.dataList.size > 0) {
+                val temp = viewModel.dataList.size
                 viewModel.dataList.clear()
+                articleAdapter.notifyItemRangeRemoved(0, temp)
             }
+            val startPosition = viewModel.dataList.size
             viewModel.dataList.addAll(it)
             //填充完通知更新视图
-            articleAdapter.notifyItemInserted(it.size)
+            articleAdapter.notifyItemRangeInserted(startPosition, it.size)
         }
         getArticleList(false)
     }

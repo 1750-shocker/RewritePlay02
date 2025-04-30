@@ -39,6 +39,9 @@ interface ArticleDao {
     @Update
     suspend fun update(article: Article): Int
 
+    @Query("UPDATE browse_history SET collect = :collect WHERE id = :id")
+    suspend fun updateCollectById(id: Int, collect: Boolean): Int
+
     @Delete
     suspend fun delete(article: Article): Int
 

@@ -76,7 +76,7 @@ class HomeRepository @Inject constructor(val application: Application) {
     }
 
     @SuppressLint("CheckResult")
-    private suspend fun insertBannerList(
+    private fun insertBannerList(
         bannerBeanDao: BannerBeanDao,
         bannerList: List<BannerBean>
     ) {
@@ -131,6 +131,7 @@ class HomeRepository @Inject constructor(val application: Application) {
             if (query.page == 1) {
                 val dataStore = DataStoreUtils
                 var downArticleTime = 0L
+                //读取时间戳保存到downArticleTime
                 dataStore.readLongFlow(DOWN_ARTICLE_TIME, System.currentTimeMillis()).first {
                     downArticleTime = it
                     true
@@ -139,6 +140,7 @@ class HomeRepository @Inject constructor(val application: Application) {
                 val articleListHome = articleListDao.getArticleList(HOME)
                 val articleListTop = articleListDao.getTopArticleList(HOME_TOP)
                 var downTopArticleTime = 0L
+
                 dataStore.readLongFlow(DOWN_TOP_ARTICLE_TIME, System.currentTimeMillis()).first {
                     downTopArticleTime = it
                     true
@@ -151,6 +153,7 @@ class HomeRepository @Inject constructor(val application: Application) {
                     val topArticleListDeferred =
                         async { AppNetwork.getTopArticleList() }
                     val topArticleList = topArticleListDeferred.await()
+
                     if (topArticleList.errorCode == 0) {
                         if (articleListTop.isNotEmpty() && articleListTop[0].link == topArticleList.data[0].link && !query.isRefresh) {
                             res.addAll(articleListTop)

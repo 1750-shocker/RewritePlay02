@@ -67,11 +67,11 @@ class HomePageFragment : ArticleCollectBaseFragment() {
     override fun initView() {
         binding?.apply {
             homeTitleBar.setRightImage(R.drawable.home_search_button)
-           /* if (isZhLanguage()) {
-                homeTitleBar.setTitleOnClickListener {
-                    AlmanacActivity.actionStart(requireContext())
-                }
-            }*/
+            /* if (isZhLanguage()) {
+                 homeTitleBar.setTitleOnClickListener {
+                     AlmanacActivity.actionStart(requireContext())
+                 }
+             }*/
             homeTitleBar.setRightImgOnClickListener {
                 SearchActivity.actionStart(requireContext())
                 //WHY:这里根据提示将源代码中的过时方法替换了
@@ -106,10 +106,13 @@ class HomePageFragment : ArticleCollectBaseFragment() {
             if (viewModel.articleList.size > 0) loadFinished()
         }) {
             if (page == 1 && viewModel.articleList.size > 0) {
+                val temp = viewModel.articleList.size
                 viewModel.articleList.clear()
+                articleAdapter.notifyItemRangeRemoved(0, temp)
             }
+            val startPosition = viewModel.articleList.size
             viewModel.articleList.addAll(it)
-            articleAdapter.notifyItemInserted(it.size)
+            articleAdapter.notifyItemRangeInserted(startPosition, it.size)
         }
         getArticleList(false)
     }

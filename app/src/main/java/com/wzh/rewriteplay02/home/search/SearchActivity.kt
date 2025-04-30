@@ -87,9 +87,9 @@ class SearchActivity : BaseActivity(), View.OnClickListener, TextView.OnEditorAc
                 ArticleListActivity.actionStart(this, name)
             }
             delete.setOnClickListener {
-                //WHY:这里缺少viewModel.dataList()的更新，但是这里的索引i和item绑定了，会导致更新错乱
+                //BUG:这里缺少viewModel.dataList()的更新，但是这里的索引i和item绑定了，会导致更新错乱
                 lifecycleScope.launch {
-                    //WHY:这里的数据库操作是延迟异步操作，如果快速重进activity，会发现数据未更新
+                    //BUG:这里的数据库操作是延迟异步操作，如果快速重进activity，会发现数据未更新
                     hotKeyDao.delete(viewModel.dataList[i])
                 }
                 binding.searchFlowLayout.removeView(item)

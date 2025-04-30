@@ -29,10 +29,14 @@ class OfficialListFragment : BaseListFragment() {
             if (viewModel.dataList.size > 0) loadFinished()
         }) {
             if (page == 1 && viewModel.dataList.size > 0) {
+                val temp = viewModel.dataList.size
                 viewModel.dataList.clear()
+                //BUG:下面增加了数据刷新，解决强制更新没有刷新列表的bug
+                articleAdapter.notifyItemRangeRemoved(0, temp)
             }
+            val startPosition = viewModel.dataList.size
             viewModel.dataList.addAll(it)
-            articleAdapter.notifyItemInserted(it.size)
+            articleAdapter.notifyItemRangeInserted(startPosition, it.size)
         }
         getArticleList(false)
     }

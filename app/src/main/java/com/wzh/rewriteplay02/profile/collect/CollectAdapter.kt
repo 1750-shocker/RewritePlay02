@@ -1,4 +1,4 @@
-package com.wzh.rewriteplay02.article.collect
+package com.wzh.rewriteplay02.profile.collect
 
 import android.content.Context
 import android.text.TextUtils
@@ -43,8 +43,7 @@ class CollectAdapter(
                 EntryPointAccessors.fromApplication(
                     mContext,
                     CollectRepositoryEntryPoint::class.java
-                )
-                    .getCollectRepository()
+                ).getCollectRepository()
             val cancelCollects = collectRepository.cancelCollects(id)
             withContext(Dispatchers.Main) {
                 if (cancelCollects.errorCode == 0) {
@@ -66,6 +65,7 @@ class CollectAdapter(
             tvArticleAuthor.text =
                 if (TextUtils.isEmpty(data.author)) data.chapterName else data.author
             tvArticleTime.text = data.niceDate
+
             if (!TextUtils.isEmpty(data.envelopePic)) {
                 ivArticleImage.visibility = View.VISIBLE
                 Glide.with(mContext).load(data.envelopePic).into(ivArticleImage)

@@ -3,6 +3,7 @@ package com.wzh.rewriteplay02.article
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.widget.ImageView
@@ -18,7 +19,6 @@ import com.wzh.model.model.CollectX
 import com.wzh.model.room.entity.Article
 import com.wzh.rewriteplay02.R
 import com.wzh.rewriteplay02.databinding.ActivityArticleBinding
-import com.wzh.rewriteplay02.profile.share.ShareActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -28,20 +28,22 @@ const val PAGE_ID = "PAGE_ID"
 const val ORIGIN_ID = "ORIGIN_ID"
 const val USER_ID = "USER_ID"
 const val IS_COLLECTION = "IS_COLLECTION"
+
 @AndroidEntryPoint
 class ArticleActivity : BaseActivity(), View.OnClickListener {
+
     private lateinit var binding: ActivityArticleBinding
     private val viewModel by viewModels<ArticleViewModel>()
 
-    private var pageName=""
-    private var pageUrl=""
-    private var pageId=-1
-    private var originId=-1
-    private var userId= -1
-    private var isCollect =-1
+    private var pageName = ""
+    private var pageUrl = ""
+    private var pageId = -1
+    private var originId = -1
+    private var userId = -1
+    private var isCollect = -1
     private lateinit var bottomDialogIvCollect: ImageView
     private lateinit var bottomDialogTvCollect: TextView
-    private var bottomSheetDialog: BottomSheetDialog?=null
+    private var bottomSheetDialog: BottomSheetDialog? = null
 
     override fun getRealLayoutView(): View {
         binding = ActivityArticleBinding.inflate(layoutInflater)
@@ -100,18 +102,22 @@ class ArticleActivity : BaseActivity(), View.OnClickListener {
                 ArticleUtils.copyToClipboard(this, pageUrl)
                 showToast(getString(com.wzh.base.R.string.copy_succeeded))
             }
+
             R.id.bottomDialogLlBrowser -> {
                 bottomSheetDialog?.dismiss()
                 ArticleUtils.jumpBrowser(this, pageUrl)
             }
+
             R.id.bottomDialogLlShare -> {
                 bottomSheetDialog?.dismiss()
                 ArticleUtils.shareUrl(this, pageName, pageUrl)
             }
+
             R.id.bottomDialogLlDynamic -> {
                 bottomSheetDialog?.dismiss()
-                //TODO:ShareActivity.actionStart(this, false, userId),ShareActivity未完成
+                //ShareActivity不完成
             }
+
             R.id.bottomDialogLlReload -> {
                 bottomSheetDialog?.dismiss()
                 binding.articleWebView.reload()
@@ -124,14 +130,14 @@ class ArticleActivity : BaseActivity(), View.OnClickListener {
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        if(keyCode==KeyEvent.KEYCODE_BACK && binding.articleWebView.canGoForward()){
+        if (keyCode == KeyEvent.KEYCODE_BACK && binding.articleWebView.canGoForward()) {
             binding.articleWebView.goBack()
             return true
         }
         return super.onKeyDown(keyCode, event)
     }
 
-    private fun showBottomDialog(){
+    private fun showBottomDialog() {
         bottomSheetDialog = BottomSheetDialog(this)
         val behavior: BottomSheetBehavior<*> = bottomSheetDialog!!.behavior
         behavior.state = BottomSheetBehavior.STATE_EXPANDED
@@ -172,17 +178,19 @@ class ArticleActivity : BaseActivity(), View.OnClickListener {
     companion object {
         fun actionStart(
             context: Context,
-            article:Article
-        ){
-            val intent = Intent(context, ArticleActivity::class.java).apply{
-                putExtra(PAGE_NAME,article.title)
-                putExtra(PAGE_URL,article.link)
-                putExtra(PAGE_ID,article.id)
-                putExtra(IS_COLLECTION,if(article.collect) 1 else 0)
-                putExtra(USER_ID,article.userId)
+            article: Article
+        ) {
+            Log.d("wzhhhh", "actionStart: 执行了ArticleActivity的actionStart()")
+            val intent = Intent(context, ArticleActivity::class.java).apply {
+                putExtra(PAGE_NAME, article.title)
+                putExtra(PAGE_URL, article.link)
+                putExtra(PAGE_ID, article.id)
+                putExtra(IS_COLLECTION, if (article.collect) 1 else 0)
+                putExtra(USER_ID, article.userId)
             }
             context.startActivity(intent)
         }
+
         fun actionStart(
             context: Context,
             pageName: String,
@@ -194,10 +202,11 @@ class ArticleActivity : BaseActivity(), View.OnClickListener {
             }
             context.startActivity(intent)
         }
+
         fun actionStart(
-            context:Context,
-            collectX:CollectX
-        ){
+            context: Context,
+            collectX: CollectX
+        ) {
             val intent = Intent(context, ArticleActivity::class.java).apply {
                 putExtra(PAGE_NAME, collectX.title)
                 putExtra(PAGE_URL, collectX.link)

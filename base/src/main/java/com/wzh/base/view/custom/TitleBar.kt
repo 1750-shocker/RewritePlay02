@@ -96,6 +96,10 @@ class TitleBar @JvmOverloads constructor(
     fun setRightImgOnClickListener(onClickListener: OnClickListener) {
         mImgRight.setOnClickListener(onClickListener)
     }
+
+    fun setBackImgOnClickListener(onClickListener: OnClickListener) {
+        mImgBack.setOnClickListener(onClickListener)
+    }
     fun setTitleOnClickListener(onClickListener: OnClickListener) {
         mTitleTv.setOnClickListener(onClickListener)
     }

@@ -42,11 +42,14 @@ class OfficialRepository @Inject constructor(application: Application) {
                 true
             }
             if (articleListForChapterId.isNotEmpty() && downArticleTime > 0 && downArticleTime - System.currentTimeMillis() < FOUR_HOUR && !query.isRefresh) {
+                //没过期也不是刷新的话就直接返回本地数据
                 Result.success(articleListForChapterId)
             } else {
+                //本地为空，或者过期了，或者是刷新的话就去网络请求数据
                 val projectTree = AppNetwork.getWxArticle(query.page, query.cid)
                 if (projectTree.errorCode == 0) {
                     if (articleListForChapterId.isNotEmpty() && articleListForChapterId[0].link == projectTree.data.datas[0].link && !query.isRefresh) {
+                        //本地有数据，不是刷新，过期了但是内容没变，就直接返回本地数据
                         Result.success(articleListForChapterId)
                     } else {
                         projectTree.data.datas.forEach {

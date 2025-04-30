@@ -1,4 +1,4 @@
-package com.wzh.rewriteplay02.article.collect
+package com.wzh.rewriteplay02.profile.collect
 
 import com.wzh.network.base.AppNetwork
 import com.wzh.rewriteplay02.base.liveDataModel

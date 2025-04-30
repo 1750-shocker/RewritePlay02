@@ -1,4 +1,4 @@
-package com.wzh.rewriteplay02.article.collect
+package com.wzh.rewriteplay02.profile.collect
 
 import androidx.lifecycle.LiveData
 import com.wzh.base.view.base.BaseViewModel

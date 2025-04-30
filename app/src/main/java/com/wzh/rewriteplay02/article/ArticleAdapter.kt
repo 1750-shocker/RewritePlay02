@@ -9,6 +9,7 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.wzh.base.Play
 import com.wzh.base.util.checkNetworkAvailable
@@ -20,8 +21,8 @@ import com.wzh.model.room.AppDatabase
 import com.wzh.model.room.entity.Article
 import com.wzh.model.room.entity.HISTORY
 import com.wzh.rewriteplay02.R
-import com.wzh.rewriteplay02.article.collect.CollectRepository
-import com.wzh.rewriteplay02.article.collect.CollectRepositoryEntryPoint
+import com.wzh.rewriteplay02.profile.collect.CollectRepository
+import com.wzh.rewriteplay02.profile.collect.CollectRepositoryEntryPoint
 import com.wzh.rewriteplay02.databinding.ItemArticleBinding
 import dagger.hilt.android.EntryPointAccessors
 import kotlinx.coroutines.CoroutineScope
@@ -49,9 +50,27 @@ class ArticleAdapter(
         parent: ViewGroup,
         viewType: Int
     ): BaseRecyclerHolder<ItemArticleBinding> {
+        val collectRepository =
+            EntryPointAccessors.fromApplication(mContext, CollectRepositoryEntryPoint::class.java)
+                .getCollectRepository()
         //从布局文件inflate并构建ViewHolder
         val binding = ItemArticleBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return BaseRecyclerHolder(binding)
+        val holder = BaseRecyclerHolder(binding)
+        binding.ivArticleCollect.setSafeListener {
+            if (mContext.checkNetworkAvailable()) {
+                //BUG:这里有逻辑冲突，自动先亮一下再灭一下，弹出toast,通过把launch给删了解决
+                val position = holder.bindingAdapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    val data = articleList[position]
+                    data.collect = !data.collect
+                    Log.d("wzhhhh", "onBaseBindViewHolder: 不知道为什么前传")
+                    setCollect(collectRepository, data, binding.ivArticleCollect)
+                }
+            } else {
+                mContext.showToast(mContext.getString(com.wzh.base.R.string.no_network))
+            }
+        }
+        return holder
     }
 
     override fun getItemCount(): Int {
@@ -89,13 +108,13 @@ class ArticleAdapter(
                     ivArticleCollect.isVisible = it
                 }
             }
-            ivArticleCollect.setSafeListener {
+            /*ivArticleCollect.setSafeListener {
                 launch {
                     Play.isLogin().collectLatest {
                         if(it){
                             if(mContext.checkNetworkAvailable()){
-                                //WHY:这里有逻辑冲突，自动先亮一下再灭一下，弹出toast
                                data.collect = !data.collect
+                                Log.d("wzhhhh", "onBaseBindViewHolder: 不知道为什么前传")
                                setCollect(collectRepository, data, ivArticleCollect)
                             }else{
                                 mContext.showToast(mContext.getString(com.wzh.base.R.string.no_network))
@@ -105,12 +124,13 @@ class ArticleAdapter(
                         }
                     }
                 }
-            }
+            }*/
             articleItem.setOnClickListener {
                 if (!mContext.checkNetworkAvailable()) {
                     mContext.showToast(mContext.getString(com.wzh.base.R.string.no_network))
                     return@setOnClickListener
                 }
+                Log.d("wzhhhh", "onBaseBindViewHolder: 点击了文章")
                 ArticleActivity.actionStart(mContext, data)
                 val articleDao = AppDatabase.getDatabase(mContext).articleDao()
                 launch(Dispatchers.IO) {
@@ -139,8 +159,8 @@ class ArticleAdapter(
                         articleIvCollect.setImageResource(R.drawable.ic_favorite_border_black_24dp)
                         Log.d("wzhhhh", "setCollect: 不知道为什么执行到这里")
                         mContext.showToast(mContext.getString(com.wzh.base.R.string.collection_cancelled_successfully))
-                        articleDao.update(article)
                     }
+                    articleDao.update(article)
                 } else {
                     mContext.showToast(mContext.getString(com.wzh.base.R.string.failed_to_cancel_collection))
                 }
@@ -149,9 +169,10 @@ class ArticleAdapter(
                 if (toCollects.errorCode == 0) {
                     withContext(Dispatchers.Main) {
                         articleIvCollect.setImageResource(R.drawable.ic_favorite_black_24dp)
+                        Log.d("wzhhhh", "setCollect: 不知道为什么执行到这里2")
                         mContext.showToast(mContext.getString(com.wzh.base.R.string.collection_successful))
-                        articleDao.update(article)
                     }
+                    articleDao.update(article)
                 } else {
                     mContext.showToast(mContext.getString(com.wzh.base.R.string.collection_failed))
                 }

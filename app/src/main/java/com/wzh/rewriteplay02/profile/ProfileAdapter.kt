@@ -7,7 +7,7 @@ import android.widget.Toast
 import com.wzh.base.Play
 import com.wzh.base.view.base.BaseRecyclerAdapter
 import com.wzh.rewriteplay02.article.ArticleActivity
-import com.wzh.rewriteplay02.article.collect.CollectListActivity
+import com.wzh.rewriteplay02.profile.collect.CollectListActivity
 import com.wzh.rewriteplay02.databinding.AdapterProfileBinding
 import com.wzh.rewriteplay02.profile.history.BrowseHistoryActivity
 import com.wzh.rewriteplay02.profile.login.LoginActivity
@@ -79,7 +79,11 @@ class ProfileAdapter(
             }
 
             mContext.getString(com.wzh.base.R.string.github) -> {
-                ArticleActivity.actionStart(mContext,mContext.getString(com.wzh.base.R.string.mine_github), "https://github.com/1750-shocker")
+                ArticleActivity.actionStart(
+                    mContext,
+                    mContext.getString(com.wzh.base.R.string.mine_github),
+                    "https://github.com/1750-shocker"
+                )
             }
 
             mContext.getString(com.wzh.base.R.string.about_me) -> {
